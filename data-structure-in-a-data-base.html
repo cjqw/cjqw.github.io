@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>数据库中的数据结构</title>
+<!-- 2017-02-25 六 23:33 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="cjqw" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="css/style.css"/>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">数据库中的数据结构</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">写在前面</a></li>
+<li><a href="#sec-2">B 树/B+ 树</a>
+<ul>
+<li><a href="#sec-2-1">查询操作</a></li>
+<li><a href="#sec-2-2">修改操作</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">哈希表</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">写在前面</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+这篇文章将要梳理一下数据库中常用的基本数据结构，
+我会假设读者拥有了基本的数据结构和操作系统方面的知识。
+</p>
+
+<p>
+先推荐一下 Christophe 的 <a href="http://coding-geek.com/how-databases-work/">How does a relational database work</a>， 把 DBMS 的每个部分都理了一遍，可以让你对 DBMS
+有一个大体的印象,不过看的时候最好带上脑子。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">B 树/B+ 树</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+假设你手里有一堆无序的 item，每个 item 有 key 和 value 两个属性，你要支持插入、删除、
+按 key 查询、查询 key 连续的一段区间，你会选择什么数据结构？ 第一想法肯定是各种平衡树、线段树。
+</p>
+
+<p>
+我所知的大多数数据库采用的是 B 树或者 B+ 树。B 树这种数据结构由来已久，从半个世纪前的 IMS 时代就开始用来存储数据。
+B+ 树是 B 树的进化版，两者结构大同小异。现代 DBMS 采用的大多是 B+ 树。根据之前的假设，我们已经知道了
+B+ 树是怎么实现的，现在来分析一下为什么要使用 B+ 树而不是人民群众喜闻乐见的红黑树/treap/SBT/线段树等等数据结构。
+</p>
+
+<p>
+首先线段树很难胜任这个工作，假设 key 的值域很大（例如 key 是一个 string），为了节省内存只能使用虚线段树，
+这样每次访问叶子结点的复杂度都是 log( 值域 ) 的。如果同时 item 的数量远小于值域，线段树的速度是绝对比不上
+平衡树或者 B+ 树的。这样一来，B+ 树的对手就只剩下平衡树了。我分别从查询和修改的角度比较一下这两类数据结构。
+</p>
+</div>
+
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">查询操作</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+查询操作最主要的就是提高范围查询的速度。
+</p>
+
+<p>
+我先小小的得罪一下 Christophe，原文是这样的：
+</p>
+<pre class="example">
+Although this tree works well to get a specific value, there is a BIG problem when you need to get
+multiple elements between two values.It will cost O(N) because you’ll have to look at each node in
+the tree and check if it’s between these 2 values (for example, with an in-order traversal of the tree).
+</pre>
+<p>
+另外他还认为使用平衡树或者线段树必须把所有数据读到内存，不然每个结点都要做一次 disk I/O
+</p>
+<pre class="example">
+Moreover this operation is not disk I/O friendly since you’ll have to read the full tree.
+</pre>
+<p>
+我在网上还找到一种观点认为 B+ 树把数据顺序存储，在做范围查询的时候，从 disk 读连续的数据要快一些。
+</p>
+
+<p>
+观点一纯粹是数据结构没学好。二和三都是 B+ 树的优点，但是其他数据结构也做得到。
+</p>
+
+<p>
+比如我将数据顺序存储在 disk，然后建立一个红黑树，其值域为该结点对应的 key 和一个指向其 value 的指针，
+范围查询时，先找到所求子串的起点，接下来或者往后一直扫到 key 不在范围内，或者再查询一次子串终点，
+总可以达到后两点的效果。
+</p>
+
+<p>
+另外一个说法是，B+ 树每个结点可以有很多子结点，使得树的高度比二叉平衡树更小，从而可以减少比较的次数。
+这个说法没有考虑到的是，每个结点儿子多了，找到下一个结点所需要的比较次数也会增加。假设一个结点有 d 个儿子，
+我们就要花费 log<sub>2</sub>(d) 次比较才能得到下一个结点，这个比较次数和把这个结点拆分成二叉的形式是一样的。
+或许由于取整造成的误差，B+ 树可以节省一两次比较，但与巨大的 disk I/O 相比，这一点加速基本上可以忽略不记了。
+</p>
+
+<p>
+说点题外话，我们知道 clojure 是用一种最多 32 个子结点的函数式线段树来实现函数式的 vector 的，按上面的分析，
+其复杂度应该也是 nlog(n) 才对。但是这个线段树的 key 就是 vector 的 index，是一个从 1 到 n 的连续数列，
+因此我们不需要在每个结点二分查找下一个子结点，直接用位运算即可在 O(1) 时间内得到下一个子结点。
+在这样一棵函数式线段树中进行查询和修改操作只需要 log<sub>32</sub>(n) 次操作，
+这也是一般将 clojure 里的 vector 看作常数较大的数组的原因。
+</p>
+
+<p>
+一个结点有多个儿子还是有好处的。我们知道，操作系统从 disk 读数据不是一个 bit 一个 bit 的读的，从 disk
+读取数据的最小单位是一个 page，大多数操作系统的 page size 都是数 KB。如果使用平衡树存储数据的话，
+往往一个结点无法占满一个 page。而 B+ 树的每个结点更大 ( 通常 B+ 树一个结点的大小恰好是一个 page)，
+也就提高了每个 page 的利用率，虽然比较次数没变，但是 disk I/O 的次数比平衡树要小得多。
+这也是 B+ 树相对于平衡树的主要优势。
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">修改操作</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+B+ 树的修改操作很有意思。它会先把修改作用到最底层，然后从倒数第二层开始（这里我把数据存储的地方看作最底层，
+当然你也可以把最后一层结点看作最底层），如果结点的儿子太多就把他分成两半，儿子太少就找边上的兄弟合并。
+是不是很像块状链表？你当然可以把 B+ 树的每一层在逻辑上看作一个块状链表。再结合每个结点的 size，我们发现
+B+ 树其实就是 meta 进化版的多级页表，区别只是为了支持离散 key 值每个结点都存了多个 key，
+以及为了支持插入删除而采用了类似块状链表的分裂/合并算法。这么一看 B+ 树长得和跳跃列表很像，
+或许应该叫它 B+ 表才对。
+</p>
+
+<p>
+至于 B+ 树和平衡树的性能，一般来说树高更小的 B+ 树所需的 disk I/O 次数小于平衡树。但是在刻意构造的数据下，
+一直重复插入/删除同一结点，可以让 B+ 树每次操作都对一条链进行分裂/合并操作，这种情况下
+B+ 树的修改效率甚至可能比红黑树更低。因此，我们在数据库中使用索引的时候，要尽量避免对同一数据的反复插入/删除。
+</p>
+
+<p>
+还有一种常见的修改操作是只修改某个 item 的 value，这个操作和查询操作差不多，B+ 树显然优于平衡树。
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">哈希表</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+FIXME
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: cjqw</p>
+<p class="date">Created: 2017-02-25 六 23:33</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"></p>
+</div>
+</body>
+</html>
