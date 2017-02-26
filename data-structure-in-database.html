@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>数据库中的数据结构</title>
-<!-- 2017-02-26 日 21:19 -->
+<!-- 2017-02-26 日 22:09 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="cjqw" />
@@ -240,15 +240,15 @@ Moreover this operation is not disk I/O friendly since you’ll have to read the
 另外一个说法是，B+ 树每个结点可以有很多子结点，使得树的高度比二叉平衡树更小，从而可以减少比较的次数。
 这个说法没有考虑到的是，每个结点儿子多了，找到下一个结点所需要的比较次数也会增加。假设一个结点有 d 个儿子，
 我们就要花费 log<sub>2</sub>(d) 次比较才能得到下一个结点，这个比较次数和把这个结点拆分成二叉的形式是一样的。
-或许由于取整造成的误差，B+ 树可以节省一两次比较，但与巨大的 disk I/O 相比，这一点加速基本上可以忽略不记了。
+或许由于取整造成的误差，B+ 树可以节省一两次比较，但与巨大的 disk I/O 相比，这一点加速基本上可以忽略不计了。
 </p>
 
 <p>
 说点题外话，我们知道 clojure 是用一种最多 32 个子结点的函数式线段树来实现函数式的 vector 的，按上面的分析，
-其复杂度应该也是 nlog(n) 才对。但是这个线段树的 key 就是 vector 的 index，是一个从 1 到 n 的连续数列，
+其复杂度应该也是 nlog<sub>2</sub>(n) 才对。但是这个线段树的 key 就是 vector 的 index，是一个从 1 到 n 的连续数列，
 因此我们不需要在每个结点二分查找下一个子结点，直接用位运算即可在 O(1) 时间内得到下一个子结点。
 在这样一棵函数式线段树中进行查询和修改操作只需要 log<sub>32</sub>(n) 次操作，
-这也是一般将 clojure 里的 vector 看作常数较大的数组的原因。
+这也是一般将 clojure 里的 vector 看作常数较大的数组的原因。( 也有人认为这是一种 TRIE)
 </p>
 
 <p>
@@ -355,7 +355,7 @@ FIXME
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: cjqw</p>
-<p class="date">Created: 2017-02-26 日 21:19</p>
+<p class="date">Created: 2017-02-26 日 22:09</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"></p>
 </div>
