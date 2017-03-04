@@ -74,20 +74,6 @@
         color: #6C5D4F;
     }
 
-    /*
-  h2:before {
-    content: "* "
-  }
-
-  h3:before {
-    content: "** "
-  }
-
-  h4:before {
-    content: "*** "
-  }
-   */
-
     h2 {
         font-family:Arial,sans-serif;
         font-size:1.45em;

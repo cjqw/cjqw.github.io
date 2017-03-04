@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>数据库中的数据结构</title>
-<!-- 2017-02-27 一 22:27 -->
+<!-- 2017-03-04 六 22:11 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="cjqw" />
@@ -153,7 +153,7 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-2-3">InnoDB 中的 B+ 树</a></li>
 </ul>
 </li>
-<li><a href="#sec-1-3"><span class="todo TODO">TODO</span> 哈希表</a></li>
+<li><a href="#sec-1-3">哈希表</a></li>
 <li><a href="#sec-1-4"><span class="todo TODO">TODO</span> 全文索引</a></li>
 <li><a href="#sec-1-5"><span class="todo TODO">TODO</span> 其他</a></li>
 </ul>
@@ -326,15 +326,26 @@ MyISAM 尚且只给 table 加锁，这东西直接给所有用了 row ID 的 tab
 不知道 InnoDB 何时修复这个设计失误，对使用者来说，实在找不到 primary key 的时候，
 还是老老实实新建一个 auto increase 的变量当作 primary key 来的稳妥。
 </p>
+
+<p>
+在数据库中，你还可以指定多个 parameter 作为 primary key，这时候数据库是将这些 parameter 当成一个向量作为主键用的。
+这就产生了一个叫“最左前缀原则”的东西。另外字符串匹配也有类似的 trick 要注意，有兴趣的可以百度/google 一下。
+</p>
 </div>
 </div>
 </div>
 
 <div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="todo TODO">TODO</span> 哈希表</h3>
+<h3 id="sec-1-3">哈希表</h3>
 <div class="outline-text-3" id="text-1-3">
 <p>
-FIXME
+跟 B+ 树相比，哈希表无疑要大众化的多。照样假设你已经了解哈希表的结构了。
+</p>
+
+<p>
+哈希表的用途主要就是快速定位元素，而且只能用完整的 key 来定位。自然速度就比 B+ 树快的多，
+插入删除查询都可以看作 O(1) 的。目前我也没找到关于哈希表有什么坑点/有趣的地方，
+如果你有什么发现的话非常欢迎和我交流。
 </p>
 </div>
 </div>
@@ -355,7 +366,7 @@ FIXME
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: cjqw</p>
-<p class="date">Created: 2017-02-27 一 22:27</p>
+<p class="date">Created: 2017-03-04 六 22:11</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"></p>
 </div>
