@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>数据库中的数据结构</title>
-<!-- 2017-03-09 四 22:04 -->
+<!-- 2017-03-09 四 22:11 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="cjqw" />
@@ -167,11 +167,6 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-1">写在前面</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
-这篇文章将要梳理一下数据库中常用的基本数据结构，
-我会假设读者拥有了基本的数据结构和操作系统方面的知识。
-</p>
-
-<p>
 先推荐一下 Christophe 的 <a href="http://coding-geek.com/how-databases-work/">How does a relational database work</a>， 把 DBMS 的每个部分都理了一遍，可以让你对 DBMS
 有一个大体的印象,不过看的时候最好带上脑子。
 </p>
@@ -182,14 +177,19 @@ for the JavaScript code in this tag.
 <h3 id="sec-1-2">B 树/B+ 树</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
-假设你手里有一堆无序的 item，每个 item 有 key 和 value 两个属性，你要支持插入、删除、
+好，现在假设你已经瞄了一眼上面那个链接（其实不瞄也没关系），并且拥有了基本的操作系统和数据结构的知识。
+</p>
+
+<p>
+我们先思考一个问题：现在你手里有一堆无序的 item，每个 item 有 key 和 value 两个属性，你要支持插入、删除、
 按 key 查询、查询 key 连续的一段区间，你会选择什么数据结构？ 第一想法肯定是各种平衡树、线段树。
 </p>
 
 <p>
-我所知的大多数数据库采用的是 B 树或者 B+ 树。B 树这种数据结构由来已久，从半个世纪前的 IMS 时代就开始用来存储数据。
-B+ 树是 B 树的进化版，两者结构大同小异。现代 DBMS 采用的大多是 B+ 树。根据之前的假设，我们已经知道了
-B+ 树是怎么实现的，现在来分析一下为什么要使用 B+ 树而不是人民群众喜闻乐见的红黑树/treap/SBT/线段树等等数据结构。
+然而，我所知的大多数数据库采用的是 B 树或者 B+ 树。B 树这种数据结构由来已久，从半个世纪前的 IMS 时代就开始用来存储数据。
+B+ 树是 B 树的进化版，两者结构大同小异，B+ 树在最底层把所有结点链了起来以加快区间查询的速度。
+现代 DBMS 采用的大多是 B+ 树。根据之前的假设，我们已经知道了 B+ 树是怎么实现的。
+接下来分析一下为什么要使用 B+ 树而不是人民群众喜闻乐见的红黑树/treap/SBT/线段树等等数据结构。
 </p>
 
 <p>
@@ -357,7 +357,7 @@ by b,c 的操作，就可以建一个 a,b,c 的复合索引，数据库的优化
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: cjqw</p>
-<p class="date">Created: 2017-03-09 四 22:04</p>
+<p class="date">Created: 2017-03-09 四 22:11</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"></p>
 </div>
