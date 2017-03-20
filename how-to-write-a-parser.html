@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>愉快地写一个 parser</title>
-<!-- 2017-03-10 五 17:39 -->
+<!-- 2017-03-20 一 21:47 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="cjqw" />
@@ -148,6 +148,19 @@ for the JavaScript code in this tag.
 <li><a href="#sec-1-1">预告</a></li>
 </ul>
 </li>
+<li><a href="#sec-2">Q &amp; A</a>
+<ul>
+<li><a href="#sec-2-1">啥时候填坑</a></li>
+<li><a href="#sec-2-2">到底怎么写</a></li>
+<li><a href="#sec-2-3">这东西当 scanner 只能处理正则，我要搞 comment 怎么办</a></li>
+<li><a href="#sec-2-4">怎么处理优先级，结合性</a></li>
+<li><a href="#sec-2-5">你知道按上面这种方式 grammar 有多难写吗</a></li>
+<li><a href="#sec-2-6">怎么降</a></li>
+<li><a href="#sec-2-7">时间复杂度？</a></li>
+<li><a href="#sec-2-8">上面的 parse 方法好暴力，有没有更高明的方法</a></li>
+<li><a href="#sec-2-9">这东西只能 clojure 用，我用不了啊</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -179,10 +192,164 @@ for the JavaScript code in this tag.
 </div>
 </div>
 </div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Q &amp; A</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">啥时候填坑</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+在可预知的未来是没空了（要无限期延迟了）。
+下面通过 QA 简略介绍一下这东西怎么弄。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">到底怎么写</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+用 clojure 的一个库 instaparse。
+<a href="https://github.com/Engelberg/instaparse">简单的教程</a> 在这里。
+</p>
+
+<p>
+显然简单单词的 scanner 已经嵌在语法里了。
+</p>
+
+<p>
+clojure 没有类，区分 token 全靠 vector 第一个元素，自然不要写 AST。
+（用 pprint 把结果打出来就可以看得很清楚了）
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">这东西当 scanner 只能处理正则，我要搞 comment 怎么办</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+parse 之前先搞个 parser 抠出 comment，删除之。（不要笑）
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">怎么处理优先级，结合性</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+优先级：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c">expr0 = item (<span style="color: #ffa07a;">'+'</span> item)*
+expr1 = expr0 (<span style="color: #ffa07a;">'*'</span> expr0)*
+</pre>
+</div>
+<p>
+结合性：
+</p>
+<div class="org-src-container">
+
+<pre class="src src-c">expr = expr | expr <span style="color: #ffa07a;">'+'</span> item (*&#24038;&#32467;&#21512;*)
+expr = expr | item <span style="color: #ffa07a;">'+'</span> expr (*&#21491;&#32467;&#21512;*)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5">你知道按上面这种方式 grammar 有多难写吗</h3>
+<div class="outline-text-3" id="text-2-5">
+<p>
+我知道。但是那是针对普通 parser geneator 而言的。
+instaparse 完全可以将设计 grammar 的复杂性降至最低。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6">怎么降</h3>
+<div class="outline-text-3" id="text-2-6">
+<p>
+关键是多道 parser。
+</p>
+
+<p>
+为什么一定要一个 parser 解决所有问题？
+</p>
+
+<p>
+以 c 语言 parser 为例，你可以先抠出所有 comment，再抠出变量定义，每条定义用一个单独 parser 处理。
+抠出函数体，把每条语句分开，再慢慢写一个 expression-parser。
+</p>
+
+<p>
+c 语言各种 x.y , *p,各种优先级很难处理对吧？写一个 variable-parser 把 x.y.z 之类变量处理掉，
+在用一个 parser 处理运算符。x.(a+b) 怎么处理？谁说一个 parser 只能调用一次了？你不会再来一次
+parse-variable 吗？
+</p>
+
+<p>
+还觉得设计 grammar 很难嘛？
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7">时间复杂度？</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+妥善设计语法的话是 O(n) 的。当然像上面说的那么暴力肯定最坏是 O(n<sup>2</sup>) 的。
+</p>
+
+<p>
+另外有个坑点，你的语法最好不要有歧义，不然它会把所有可能的 AST 算出来然后随便返回你一个。
+当然你也可以用 parses 函数得到所有 AST。具体情况官方的 README 里写的很清楚了。
+这种情况最坏可能到指数复杂度，如果你的 parser 慢如蜗牛，可以找找看哪有歧义。
+</p>
+
+<p>
+一般的使用场景中是不用担心速度太慢的。有几个原因：
+</p>
+<ul class="org-ul">
+<li>使用多道 parser 导致底层的 n 规模很小，你只要保证顶部数层设计良好即可，大多数情况下你甚至不要考虑歧义
+</li>
+<li>如果你 parse 的东西是手打的，你总不会坐下来敲几万行代码然后还层层嵌套吧，有个东西叫代码规范
+</li>
+<li>如果是其他程序的输出，你为啥不能找个好点的办法输出，甚至直接输出 AST
+</li>
+</ul>
+
+<p>
+私以为，类似 antlr 或者 jcup 之类的工具变态般的追求复杂度主要是因为以前计算机跑太慢了。
+除了单片机等特殊设备上，我实在找不出什么场景不能用 instaparse 代替 antlr 的。
+如果你找到了，欢迎告诉我。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8">上面的 parse 方法好暴力，有没有更高明的方法</h3>
+<div class="outline-text-3" id="text-2-8">
+<p>
+不知道，懒得想。
+</p>
+</div>
+</div>
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9">这东西只能 clojure 用，我用不了啊</h3>
+<div class="outline-text-3" id="text-2-9">
+<p>
+clojure 是基于 jvm 的，你可以在任意操作系统使用 clojure。
+</p>
+
+<p>
+clojure 是可以直接和 java 交互，创建 java 的类的。具体方法可以看 <a href="http://www.braveclojure.com/java/">braveclojure</a>。
+</p>
+
+<p>
+至于和其他语言的交互，你可以输出 AST。写一个 AST 的 parser 应该是不用费脑子的。
+</p>
+</div>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: cjqw</p>
-<p class="date">Created: 2017-03-10 五 17:39</p>
+<p class="date">Created: 2017-03-20 一 21:47</p>
 <p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
 <p class="validation"></p>
 </div>
