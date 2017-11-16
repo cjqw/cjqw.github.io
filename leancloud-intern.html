@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>Sitemap</title>
+<title>LeanCloud 实习总结</title>
 <!-- 2017-11-16 四 19:50 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
@@ -138,21 +138,66 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Sitemap</h1>
-<ul class="org-ul">
-<li><a href="leancloud-intern.html">2017-11-16 LeanCloud 实习总结</a>
-</li>
-<li><a href="information-theory.html">2017-10-07 浅谈信息论</a>
-</li>
-<li><a href="ali-internship.html">2017-08-04 阿里实习感想</a>
-</li>
-<li><a href="data-structure-in-database.html">2017-07-23 数据库中的数据结构</a>
-</li>
-<li><a href="NASA.html">2017-04-07 从 NASA 想到的</a>
-</li>
-<li><a href="how-to-write-a-parser.html">2017-03-27 愉快地写一个 parser</a>
-</li>
+<h1 class="title">LeanCloud 实习总结</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">content</a></li>
 </ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">content</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+在 LeanCloud 实习两个月，写点东西记录一下这两个月的感受。
+</p>
+
+<p>
+LeanCloud 是家创业公司，进去之前已经做好悬梁刺股的准备了，
+结果完全感觉不到传说中创业公司的紧张氛围，大概我进的是假的互联网公司吧。
+最让我感动的是昆山办公室距对面的小区只要十分钟路程，让我这种懒癌得以每天睡到自然醒顺便赖会床。
+</p>
+
+<p>
+公司的工程师文化特别浓厚，几十个人的团体大部分都是程序员，老板是前 Google 员工，
+工程师们可以专心干事。另外公司每周五有内部分享，今年还赞助了某 PL 领域的大会，
+发了两个免费名额给员工。内部的文档虽然没有大公司那么详尽，还是能把大致的框架讲清楚。
+当然细节的地方就要自己看代码/注释或者问同事了。
+</p>
+
+<p>
+我负责的那个系统是用 Clojure 写的。Clojure 是一门很有意思的语言，
+它是 lisp 的一个方言，运行在 JVM 环境下。Clojure 有强大而灵活的 macro 系统和
+destructor，加上函数式语言特有的 first-class function，immutable data structure
+等特性，可以极大的减轻程序员的心智负担，减少代码量。
+总之我阅读源码的时候就感觉很漂亮，非常易读，当然你需要先知道满天飞的 macro 分别是干什么的。
+这也是我第一次生产环境用 Clojure，确实是一门令人愉悦的语言。
+</p>
+
+<p>
+我搞的事情主要是调数据库做个计算，还有一些杂活，技术难点都在 API 上了。
+当然还要考虑一下调失败了怎么办，哪里打 log 之类的事情，算是接触了真实的生产环境。
+中间因为接口啊变量名之类的问题改了若干次代码，感觉这方面是学生的通病啊。
+最后几天代码上线跑碰到一个 bug，找了半天发现是 Mysql 里的数据类型精度不够，
+存进去的时候数字太大就直接爆了，唉，我还是太菜。另外在线上能接触到 TB 级的数据，感觉可以吹一波（虽然不敢乱碰）。
+</p>
+
+<p>
+当时公司正在开发一个叫 Livequery 的功能，我也参加（旁听）了一些相关的讨论，
+感觉关注点完全不一样 orz,我还是太年轻。除此之外，LeanCloud
+的架构也让我大开眼界，不过不知道这方面能说多少还是算了。
+</p>
+
+<p>
+在 Leancloud 的两个月虽然很多时间都花在熟悉环境上，实际上的产出并不高，
+但是这次做的东西都能部署到线上环境，实实在在的产生效益，
+成就感比某些让实习生做玩具的公司大的多。这次非常幸运能在 LeanCloud 实习，
+大家找工作/实习的时候也可以考虑一下这家画风清奇的创业公司。
+</p>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: cjqw</p>
