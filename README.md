@@ -1,5 +1,2 @@
 # cjqw.github.io
-This is my blog (in Chinese) in github page.
-
-TODO
-- linear programming and net-work flows 
+This blog is under maintainance. You can access old blog via http://cjqw.github.io/old-blog/index.html .
