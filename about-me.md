@@ -15,5 +15,5 @@ BTW I accomplished some deep learning projects in elective courses.
 Now almost all of the posts are written in Chinese. I will translate some of them in English some day.
 
 I want to show my thoughts and experiences in this blog. If you have anything to share with me,
-feel free to cantact me by opening an issue in [github repo](https://github.com/cjqw/cjqw.github.io).
+feel free to cantact me by opening an issue in the [github repo](https://github.com/cjqw/cjqw.github.io).
 I wish you success and have fun!
