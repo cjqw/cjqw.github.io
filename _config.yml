@@ -30,6 +30,7 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-compose
 
 # Custom variables
 version: "1.0.0"
