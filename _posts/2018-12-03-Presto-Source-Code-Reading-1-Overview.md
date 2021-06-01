@@ -10,7 +10,7 @@ tags:
 
 
 2021 Update:
-这篇文章是从我的[知乎博客](https://www.zhihu.com/column/c_1051437363691147264)搬过来的，作者是同一人。
+这篇文章是从我的[知乎专栏](https://www.zhihu.com/column/c_1051437363691147264)搬过来的，作者是同一人。
 这几篇文章都是 18 年到 19 年初写的，Presto 社区这几年已经发生了巨大的变化，以下内容仅作参考。
 
 Presto 是 Facebook 搞的一个分布式 SQL 执行引擎。它自身不存数据，通过 Connector 从 Hive，Cassandra 等数据源拉数据到 worker 上进行 join，aggregate 等操作。一个 Presto 集群一般长这样：
