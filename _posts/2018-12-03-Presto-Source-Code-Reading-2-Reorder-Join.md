@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Presto 源码阅读：ReorderJoins
-date: 2018-12-03 23:39 +0800
+date: 2018-12-08 23:39 +0800
 tags:
 - Presto
 - RDBMS
