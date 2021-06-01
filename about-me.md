@@ -1,19 +1,12 @@
 ---
 layout: page
-title: "about me"
+title: "ABOUT ME"
 ---
 
-Hello, I'm cjqw, a senior student in CS department.
-I love ACG, programming and walking. I took part in
-OI in high school and still remain great interest in algorithms
-and data structures.
+2014 ~ 2018, Shanghai Jiao Tong University, bachelor in Computer science and technoledge.
 
-There are many labels which fit me, Emacser, Pythonist, Clojurer e.t.c..
-I mainly focused on big data (including distributed system and data mining) in university.
-BTW I accomplished some deep learning projects in elective courses.
+2018 ~ 2019, Alibaba, Taobao Searching team.
 
-Now almost all of the posts are written in Chinese. I will translate some of them in English some day.
+2019 ~ Now, Microsoft, Bing platform team.
 
-I want to show my thoughts and experiences in this blog. If you have anything to share with me,
-feel free to cantact me by opening an issue in the [github repo](https://github.com/cjqw/cjqw.github.io).
-I wish you success and have fun!
+Software engineer. Clojurian. Emacser. OIer. etc.

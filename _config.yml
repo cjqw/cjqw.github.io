@@ -1,10 +1,10 @@
 # Site settings
-title: cjqw's' blog
+title: CJQW's blog
 description: >-
-    This is the personal blog of cjqw. Feel free to contact me in github.
+    Feel free to contact me in github.
 url: "https://cjqw.github.io"
 author:
-  name: "cjqw"
+  name: "CJQW"
   url: "https://cjqw.github.io"
 
 # Build settings
