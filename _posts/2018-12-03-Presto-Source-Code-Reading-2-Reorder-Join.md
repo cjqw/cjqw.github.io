@@ -97,7 +97,7 @@ private JoinEnumerationResult chooseJoinOrder(LinkedHashSet<PlanNode> sources, L
 
 
 
-总结：
+## 总结：
 
 1. Presto 的 join 重排是基于动态规划实现的，复杂度为卡特兰数级别
 2. join 数量过多时，会超时退出，这时相当于白跑了
