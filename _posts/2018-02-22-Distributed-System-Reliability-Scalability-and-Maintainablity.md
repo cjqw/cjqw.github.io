@@ -2,6 +2,9 @@
 layout: post
 title: 分布式系统笔记（一）可靠性，可拓展性和可维护性
 date: 2018-02-22 17:48 +0800
+tags:
+- Distributed System
+- DDIA
 ---
 
 最近看了一本好书：Designing Data Intensive Applications。这本书条理清晰地分析了分布式系统的设计，
@@ -61,4 +64,3 @@ Indeed 是做 Job Search Engine 的。根据 Indeed 的[技术博客](http://eng
 易理解要求系统结构清晰，代码易读。解耦，减少依赖，使用合适的抽象，使用设计模式都可以让系统变得更简单易读。
 
 易修改是指工程师可以方便地对系统进行修改，近年兴起的敏捷开发就提供了很多思路，比如 TDD，重构。还有系统级别的修改，比如 Twitter 如何从 Push 架构转换成混合架构。如何在修改过程中减少错误，减少 down time 对可维护性的影响是很大的。
-

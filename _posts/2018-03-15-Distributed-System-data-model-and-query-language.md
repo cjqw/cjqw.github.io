@@ -2,6 +2,9 @@
 layout: post
 title: 分布式系统笔记（二） 数据库的数据模型和 Query Language
 date: 2018-03-15 18:12 +0800
+tags:
+- Distributed System
+- DDIA
 ---
 
 数据模型是指软件对于所处理数据的抽象，

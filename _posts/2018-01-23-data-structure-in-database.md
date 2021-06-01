@@ -2,6 +2,9 @@
 layout: post
 title: 数据库中的数据结构
 date: 2018-01-23 23:39 +0800
+tags:
+- RDBMS
+- data structure
 ---
 
 写在前面

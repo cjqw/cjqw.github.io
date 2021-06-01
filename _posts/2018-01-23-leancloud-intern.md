@@ -2,6 +2,7 @@
 layout: post
 title: leancloud实习总结
 date: 2018-01-23 23:39 +0800
+tags: LeanCloud Intern
 ---
 
 在 LeanCloud 实习两个月，写点东西记录一下这段时间的感受。

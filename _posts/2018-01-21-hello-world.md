@@ -2,6 +2,7 @@
 layout: post
 title: Hello World!
 date: 2018-01-21 23:17 +0800
+tags: Others
 ---
 
 你好，我是 cjqw，一个大四 CS 系的准程序员，很高兴能通过这个技术博客跟你交流自己的一些想法。

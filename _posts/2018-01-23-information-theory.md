@@ -2,6 +2,9 @@
 layout: post
 title: 初探信息论
 date: 2018-01-23 23:39 +0800
+tags:
+- Information Theory
+- Entropy
 ---
 
 这篇文章是我在 Lean Cloud的内部分享。信息论是个很有意思的东西，我选择这个主题的原因
